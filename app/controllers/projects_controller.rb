@@ -5,10 +5,11 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    ctx = Project.all
+    ctx = Project::Index.call
 
-    return json_response({ errors: ctx[:errors] }, 404) if ctx.empty?
-    render json_response({ ctx }, 200) if ctx.failure?
+    return json_response({ errors: ctx[:errors] }, ctx[:status]) if ctx.failure?
+
+    json_response(ctx.projects, 200)
   end
 
   # GET /projects/1 or /projects/1.json

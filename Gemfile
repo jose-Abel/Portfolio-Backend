@@ -28,6 +28,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 gem 'aws-sdk-s3', require: false
+gem 'interactor', '~> 3.0'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -53,6 +54,7 @@ gem 'ffaker'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'byebug'
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
