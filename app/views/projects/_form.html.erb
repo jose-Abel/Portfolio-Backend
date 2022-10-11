@@ -1,0 +1,47 @@
+<%= form_with(model: project) do |form| %>
+  <% if project.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+        <% project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :see_code, style: "display: block" %>
+    <%= form.text_field :see_code %>
+  </div>
+
+  <div>
+    <%= form.label :live_version, style: "display: block" %>
+    <%= form.text_field :live_version %>
+  </div>
+
+  <div>
+    <%= form.label :main_img, style: "display: block" %>
+    <%= form.text_field :main_img %>
+  </div>
+
+  <div>
+    <%= form.label :secondary_img, style: "display: block" %>
+    <%= form.text_field :secondary_img %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
