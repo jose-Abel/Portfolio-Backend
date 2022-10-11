@@ -1,9 +1,14 @@
 class ProjectsController < ApplicationController
+  include Response
+
   before_action :set_project, only: %i[ show edit update destroy ]
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
+    ctx = Project.all
+
+    return json_response({ errors: ctx[:errors] }, 404) if ctx.empty?
+    render json_response({ ctx }, 200) if ctx.failure?
   end
 
   # GET /projects/1 or /projects/1.json
@@ -65,6 +70,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def project_params
-      params.require(:project).permit(:title, :description, :see_code, :live_version, :main_img, :secondary_img)
+      params.require(:project).permit(:title, :description, :see_code, :live_version, images: [])
     end
 end
