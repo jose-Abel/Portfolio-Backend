@@ -7,11 +7,16 @@ class Project < ApplicationRecord
 	private
 
   def actions_after_create
-    update_columns(main_img: image_url)
+    update_columns(main_img: main_image_url)
+    update_columns(secondary_img: secondary_image_url) if images.length > 1
   end
 
-  def image_url
+  def main_image_url
     url_for(images.first)
+  end
+
+  def secondary_image_url
+    url_for(images.second)
   end
 
 	def purge_image
