@@ -6,7 +6,6 @@ ruby "2.7.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 gem 'rack-cors'
-
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -56,9 +55,8 @@ gem 'ffaker'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'byebug'
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "minitest"
   gem 'factory_bot_rails'
-  gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
 end
 
 group :development do
