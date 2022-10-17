@@ -1,48 +1,26 @@
 require "test_helper"
 
-class ProjectsControllerTest < ActionDispatch::IntegrationTest
-  # setup do
-  #   @project = projects(:one)
-  # end
+class ProjectsControllerTest < ActionController::TestCase
+  setup do
+    @request.headers['Accept'] = "application/json"
+    @request.headers['Content-Type'] = "application/json"
 
-  # test "should get index" do
-  #   get projects_url
-  #   assert_response :success
-  # end
+    @project = Project.new(title: "My first app", description: "My first app description", see_code: "https://seecode.com", live_version: "https://liveversion.com")
 
-  # test "should get new" do
-  #   get new_project_url
-  #   assert_response :success
-  # end
+    @project.images.attach(io: File.open('storage/images/life-style-articles-app.png'), filename: 'lifestylearticles.png', content_type: 'png')
 
-  # test "should create project" do
-  #   assert_difference("Project.count") do
-  #     post projects_url, params: { project: { description: @project.description, live_version: @project.live_version, main_img: @project.main_img, secondary_img: @project.secondary_img, see_code: @project.see_code, title: @project.title } }
-  #   end
+    @project.save
+  end
 
-  #   assert_redirected_to project_url(Project.last)
-  # end
+  test "should get index" do
+    get :index, :format => "json"
+    json_response = JSON.parse(response.body)
+    
+    assert_response :success    
+    assert_equal json_response.first["title"], "My first app"
+    assert_equal json_response.first["description"], "My first app description"
+    assert_equal json_response.first["see_code"], "https://seecode.com"
+    assert_equal json_response.first["live_version"], "https://liveversion.com"
+  end
 
-  # test "should show project" do
-  #   get project_url(@project)
-  #   assert_response :success
-  # end
-
-  # test "should get edit" do
-  #   get edit_project_url(@project)
-  #   assert_response :success
-  # end
-
-  # test "should update project" do
-  #   patch project_url(@project), params: { project: { description: @project.description, live_version: @project.live_version, main_img: @project.main_img, secondary_img: @project.secondary_img, see_code: @project.see_code, title: @project.title } }
-  #   assert_redirected_to project_url(@project)
-  # end
-
-  # test "should destroy project" do
-  #   assert_difference("Project.count", -1) do
-  #     delete project_url(@project)
-  #   end
-
-  #   assert_redirected_to projects_url
-  # end
 end
