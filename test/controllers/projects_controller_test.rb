@@ -23,4 +23,25 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_equal json_response.first["live_version"], "https://liveversion.com"
   end
 
+  test "should create a new project" do
+    body = {
+      project: {
+        title: "Another project",
+        description: "Description for a second project",
+        see_code: "https://seecode.com",
+        live_version: "https://liveversion.com",
+        images: [Rack::Test::UploadedFile.new('storage/images/life-style-articles-app.png', 'image/png')]
+      }
+    }
+    post :create, format: :json, params: body
+
+    json_response = JSON.parse(response.body)
+
+    assert_response :success    
+    assert_equal json_response["title"], body[:project][:title]
+    assert_equal json_response["description"], body[:project][:description]
+    assert_equal json_response["see_code"], body[:project][:see_code]
+    assert_equal json_response["live_version"], body[:project][:live_version]
+  end
+
 end

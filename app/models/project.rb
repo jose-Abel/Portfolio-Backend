@@ -4,6 +4,16 @@ class Project < ApplicationRecord
 
 	has_many_attached :images
 
+  validates_uniqueness_of :title
+
+  validates :title, presence: true, length: { minimum: 3, maximum: 30 }
+
+  validates :description, presence: true, length: { minimum: 10, maximum: 1000 }
+
+  validates :see_code, presence: true, length: { minimum: 10, maximum: 100 }
+
+  validates :live_version, presence: true, length: { minimum: 10, maximum: 100 }
+
 	private
 
   def actions_after_create
