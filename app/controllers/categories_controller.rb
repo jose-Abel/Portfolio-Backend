@@ -1,7 +1,5 @@
 class CategoriesController < ApplicationController
 
-	# before_action :require_admin, except: [:index, :show]
-
 	def index
 		ctx = Category::Index.call
 
@@ -29,9 +27,5 @@ class CategoriesController < ApplicationController
 	def create_params
 		params.require(:category).permit(:name)
 	end
-
-	# def require_admin
-	# 	current_user.admin?
-	# end
 
 end
