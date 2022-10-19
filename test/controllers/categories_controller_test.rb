@@ -29,4 +29,11 @@ class CategoriesControllerTest < ActionController::TestCase
     assert_equal json_response["name"], "CSS"
   end
 
+  test "should not create a new category if not admin" do
+    post :create, format: :json, params: { category: {name: "CSS" }}
+    byebug
+    assert_response  
+    assert_no_difference("Category.count")
+  end
+
 end

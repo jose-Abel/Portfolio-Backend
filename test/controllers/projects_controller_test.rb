@@ -12,7 +12,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @project.save
   end
 
-  test "should get index" do
+  test "should get all the projects" do
     get :index, :format => "json"
     json_response = JSON.parse(response.body)
     

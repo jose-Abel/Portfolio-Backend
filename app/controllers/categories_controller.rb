@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
 
+	# before_action :require_admin, except: [:index, :show]
+
 	def index
 		ctx = Category::Index.call
 
@@ -9,7 +11,7 @@ class CategoriesController < ApplicationController
 	end
 
 	def create
-		ctx = Category::Create.call(params: category_params.to_h)
+		ctx = Category::Create.call(params: create_params.to_h)
 
     return json_response({ errors: ctx[:errors] }, ctx[:status]) if ctx.failure?
 
@@ -24,8 +26,12 @@ class CategoriesController < ApplicationController
 
 	private
 
-	def category_params
+	def create_params
 		params.require(:category).permit(:name)
 	end
+
+	# def require_admin
+	# 	current_user.admin?
+	# end
 
 end
